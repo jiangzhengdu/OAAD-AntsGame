@@ -13,7 +13,7 @@ public class Ant {
         this.position = position;
         this.speed = speed;
         this.State = ifOnPole(position, length);
-        ;
+
     }
 
     public void Move() { //0:left 1:right
@@ -53,13 +53,16 @@ public class Ant {
     public void setState(Ant ant) {
         if (ant.getPosition() <= Pole.getSTART() || ant.getPosition() >= Pole.getLENGTH()) {
             Pole.setAntOnNumber();
-            ant.setStateOn();
+            ant.setStateOut();
         }
+        else
+            ant.setStateOn();
+
     }
 
-    public boolean ifOnPole(int positoon, int length) {
+    public boolean ifOnPole(int position, int length) {
 
-        if (position <= 0 || positoon >= length)
+        if (position <= 0 || position >= length)
             return false;
             return true;
     }

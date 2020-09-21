@@ -27,10 +27,11 @@ public class CreepingGame {
         //游戏操作
         int time = 0;
         Pole pole = new Pole(antsNum, length, ants);
-        if (pole.getOnAnt() == 0) {
-
+        if(pole.getOnAnt() == 0) {
             return time;
-        } else {
+        }
+        else {
+           // System.out.println(pole.getOnAnt());
             while (pole.getOnAnt() > 0) {
                 for (Ant i : ants) {
                     if (i.getState()) {
