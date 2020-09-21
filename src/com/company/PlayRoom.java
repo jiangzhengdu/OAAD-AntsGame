@@ -2,32 +2,36 @@ package com.company;
 
 import java.math.*;
 import java.util.Scanner;
-
+import java.util.Arrays;
 public class PlayRoom {
 
     public static void main(String[] args) {
-      /*  int antsNum = 5;
-        int[] allDirection = new int[antsNum]; //0:left 1:right
-        int[] allPostion = {30,80,110,160,250};
-        int allSpeed = 5;*/
 
-      //UI
-        System.out.println("*********Welcome to paly the game of CreepingAnts*********");
-        System.out.println("\n>> And now, you need to enter some initialize imformation");
-        System.out.println("                 The lenght of pole is 300");
+      //Terminal UI
+        System.out.println("----------------Ant Creeping game begin-------------------------");
+        System.out.println("now, you need to enter some data to initialize the game");
         System.out.println("----------------------------------------------------------");
-        System.out.println(">> Please enter the number of ants: ");
+        int length=-1;
+        int antsNum=0;
         Scanner scanner = new Scanner(System.in);
-        int antsNum = scanner.nextInt();
+        while(length<antsNum) {    //the length of the pole must be larger than the number of ants ,else reenter the data
+            System.out.println("the length of pole must be larger than the number of ants\n ");
+            System.out.println("please enter the length of poles: ");
+            length = scanner.nextInt();
+            System.out.println("please enter the number of ants: ");
+            scanner = new Scanner(System.in);
+            antsNum = scanner.nextInt();
+        }
         int[] allDirection = new int[antsNum]; //0:left 1:right
         int[] allPostion = new int[antsNum];
         int allSpeed;
 
-        System.out.println(">> Please enter the position of each ant: ");
+        System.out.println("please enter the position of each ant: ");
         for ( int i = 0; i < antsNum; i++){
             allPostion[i] = scanner.nextInt();
+
         }
-        System.out.println(">> Please enter the speed of ants");
+        System.out.println("please enter the speed of ants");
         allSpeed = scanner.nextInt();
 
         int times = (int)Math.pow(2,antsNum);
@@ -37,31 +41,22 @@ public class PlayRoom {
       // 开始游戏
         for (int i = 0; i < Math.pow(2,antsNum); i++){
             initDirection(i, allDirection);
-            CreepingGame creepingGame = new CreepingGame(antsNum,allDirection,allPostion,allSpeed);
+            CreepingGame creepingGame = new CreepingGame(antsNum,allDirection,allPostion,allSpeed,length);
             time[i] = creepingGame.playGame();
         }
+        Arrays.sort(time);
         playRoom.printMaxTime(time);
         playRoom.printMinTime(time);
-        System.out.println("\n***************** game over ******************");
+        System.out.println("\n------------------ game over -------------------");
 
     }
 
     public void printMaxTime(int[] time){
-        int maxTime = time[0];
-        for (int i = 1; i < time.length; i++){
-            if(time[i] > maxTime)
-                maxTime = time[i];
-        }
-        System.out.println("maxTime = " + maxTime);
+        System.out.println("maxTime is " + time[time.length-1]);
     }
 
     public void printMinTime(int[] time){
-        int minTime = time[0];
-        for (int i = 1; i < time.length; i++){
-            if (time[i] < minTime)
-                minTime = time[i];
-        }
-        System.out.println("minTime = " + minTime);
+        System.out.println("minTime is " + time[0]);
     }
 
     public static void initDirection(int i, int[] allDirection){
@@ -72,4 +67,8 @@ public class PlayRoom {
             i /=2;
         }while (i != 0);
     }
+
+
+    //if ant_num=5  then i=2^5=2*2*2*2*2=32
+    //allDirection[0]=0 j=1 i=16
 }

@@ -2,23 +2,25 @@ package com.company;
 
 public class Pole {
     private static int START;
-    private static int END;
-    private static int aliveAnt;
+    private static int OnAnt;
+    private static int LENGTH;
 
-    Pole(int antNum) {
+    Pole(int antNum,int LENGTH ,Ant ant[]) {
         this.START = 0;
-        this.END = 299;
-        this.aliveAnt = antNum;
+        this.OnAnt = iniOnAnt(ant);
+        this.LENGTH=LENGTH;
     }
-
-    Pole(int start, int end, int antNum) {
-        this.START = start;
-        this.END = end;
-        this.aliveAnt = antNum;
-    }
-
-    public int getAliveAnt() { return aliveAnt; }
+    public int getOnAnt() { return OnAnt; }
     public static int getSTART() { return START;}
-    public static int getEND() { return END;}
-    public static void setAliveAnt() { aliveAnt--;}
+    public static int getLENGTH() {return LENGTH;}
+    public static void setAntOnNumber() { OnAnt--;}
+    public int iniOnAnt(Ant ant[]){
+        int onAnt=0;
+        for(Ant i:ant)
+        {
+            if(i.getState())
+                onAnt++;
+        }
+        return onAnt;
+    }
 }
